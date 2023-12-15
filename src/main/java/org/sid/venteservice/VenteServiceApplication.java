@@ -1,13 +1,13 @@
-package org.sid.billingservice;
+package org.sid.venteservice;
 
-import org.sid.billingservice.entities.Bill;
-import org.sid.billingservice.entities.ProductItem;
-import org.sid.billingservice.model.Customer;
-import org.sid.billingservice.model.Product;
-import org.sid.billingservice.repositories.BillRepository;
-import org.sid.billingservice.repositories.ProductItemsRepository;
-import org.sid.billingservice.service.CustomerRestClient;
-import org.sid.billingservice.service.ProductRestClient;
+import org.sid.venteservice.entities.Vente;
+import org.sid.venteservice.entities.ProductItem;
+import org.sid.venteservice.model.Customer;
+import org.sid.venteservice.model.Product;
+import org.sid.venteservice.repositories.VenteRepository;
+import org.sid.venteservice.repositories.ProductItemsRepository;
+import org.sid.venteservice.service.CustomerRestClient;
+import org.sid.venteservice.service.ProductRestClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,14 +20,14 @@ import java.util.Random;
 
 @SpringBootApplication
 @EnableFeignClients //to enable injection and recognize customer and product rest controller
-public class BillingServiceApplication {
+public class VenteServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BillingServiceApplication.class, args);
+        SpringApplication.run(VenteServiceApplication.class, args);
     }
 
     @Bean
-    CommandLineRunner start(BillRepository billRepository,
+    CommandLineRunner start(VenteRepository venteRepository,
                             ProductItemsRepository productItemsRepository,
                             CustomerRestClient customerRestClient,
                             ProductRestClient productRestClient) {
@@ -37,14 +37,14 @@ public class BillingServiceApplication {
             Long customerId=1L;
             Customer customer = customerRestClient.findCustomerById(customerId);
             if(customer == null) throw  new RuntimeException("Customer not found");
-            Bill bill = new Bill();
-            bill.setBillDate(new Date());
-            bill.setCustomerId(customerId);
-            Bill savedBill = billRepository.save(bill);
+            Vente vente = new Vente();
+            vente.setVenteDate(new Date());
+            vente.setCustomerId(customerId);
+            Vente savedVente = venteRepository.save(vente);
             products.forEach(
                     product -> {
                         ProductItem productItem = new ProductItem();
-                        productItem.setBill(savedBill);
+                        productItem.setVente(savedVente);
                         productItem.setQuantity(1+new Random().nextInt(10));
                         productItem.setPrice(product.getPrice());
                         productItem.setDiscount(Math.random());

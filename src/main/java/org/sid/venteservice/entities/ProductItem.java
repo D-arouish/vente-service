@@ -1,9 +1,9 @@
-package org.sid.billingservice.entities;
+package org.sid.venteservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
-import org.sid.billingservice.model.Product;
+import org.sid.venteservice.model.Product;
 
 @Entity
 @Data
@@ -14,7 +14,7 @@ public class ProductItem {
     private Long productId;
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Bill bill;
+    private Vente vente;
     private Integer quantity;
     private Double price;
     private Double discount;

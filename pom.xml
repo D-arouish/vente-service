@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.sid</groupId>
-    <artifactId>billing-service</artifactId>
+    <artifactId>vente-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>billing-service</name>
     <description>billing-service</description>
